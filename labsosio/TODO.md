@@ -1,0 +1,3 @@
+- [ ] Update CSS colors to navy blue theme
+- [ ] Add new section for Program Studi with modern flexbox grid
+- [ ] Provide flexbox recommendations for campus institutions

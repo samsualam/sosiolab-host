@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jurusan Sosiologi - Universitas Negeri Gorontalo</title>
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f9fafc;
+      color: #333;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 10px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      color: #003366;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .nav-center {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 20px;
+    }
+
+    .nav-link {
+      background: #003366;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      font-size: 18px;
+      transition: background 0.3s;
+    }
+
+    .nav-link:hover {
+      background: #002244;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      min-width: 150px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu li {
+      border-bottom: 1px solid #eee;
+    }
+
+    .dropdown-menu li:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 15px;
+      color: #003366;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f0f0f0;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #003366;
+      transition: 0.3s;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+      transition: right 0.3s;
+      z-index: 101;
+      padding: 80px 20px 20px 20px;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .sidebar-link {
+      display: block;
+      padding: 15px 0;
+      color: #003366;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid #eee;
+      transition: color 0.3s;
+    }
+
+    .sidebar-link:hover {
+      color: #002244;
+    }
+
+    .sidebar-dropdown {
+      position: relative;
+    }
+
+    .sidebar-dropdown-menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      display: none;
+    }
+
+    .sidebar-dropdown.active .sidebar-dropdown-menu {
+      display: block;
+    }
+
+    .sidebar-dropdown-menu a {
+      display: block;
+      padding: 10px 20px;
+      color: #003366;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .sidebar-dropdown-menu a:hover {
+      background: #e0e0e0;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* From Uiverse.io by satyamchaudharydev */
+    /* this is a recreation of twitter search in css */
+    .form {
+      --input-text-color: #000;
+      --input-bg-color: #283542;
+      --focus-input-bg-color: transparent;
+      --text-color: #949faa;
+      --active-color: #4070f4;
+      --width-of-input: 200px;
+      --inline-padding-of-input: 1.2em;
+      --gap: 0.9rem;
+    }
+    /* form style */
+    .form {
+      font-size: 0.9rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      width: var(--width-of-input);
+      position: relative;
+      isolation: isolate;
+    }
+    /* a fancy bg for showing background and border when focus. */
+    .fancy-bg {
+      position: absolute;
+      width: 100%;
+      inset: 0;
+      background: var(--input-bg-color);
+      border-radius: 30px;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+    /* label styling */
+    label {
+      width: 100%;
+      padding: 0.8em;
+      height: 40px;
+      padding-inline: var(--inline-padding-of-input);
+      display: flex;
+      align-items: center;
+    }
+
+    .search,.close-btn {
+      position: absolute;
+    }
+    /* styling search-icon */
+    .search {
+      fill: var(--text-color);
+      left: var(--inline-padding-of-input);
+    }
+    /* svg -- size */
+    svg {
+      width: 17px;
+      display: block;
+    }
+    /* styling of close button */
+    .close-btn {
+      border: none;
+      right: var(--inline-padding-of-input);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      padding: 0.1em;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--active-color);
+      opacity: 0;
+      visibility: hidden;
+    }
+    /* styling of input */
+    .input {
+      color: var(--input-text-color);
+      width: 100%;
+      margin-inline: min(2em,calc(var(--inline-padding-of-input) + var(--gap)));
+      background: none;
+      border: none;
+    }
+
+    .input:focus {
+      outline: none;
+    }
+
+    .input::placeholder {
+      color: var(--text-color)
+    }
+    /* input background change in focus */
+    .input:focus ~ .fancy-bg {
+      border: 1px solid var(--active-color);
+      background: var(--focus-input-bg-color);
+    }
+    /* search icon color change in focus */
+    .input:focus ~ .search {
+      fill: var(--active-color);
+    }
+    /* showing close button when typing */
+    .input:valid ~ .close-btn {
+      opacity: 1;
+      visibility: visible;
+    }
+    /* this is for the default background in input,when selecting autofill options -- you can remove this code if you do not want to override the browser style.  */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+      -webkit-transition-delay: 9999s;
+    }
+
+    .btn {
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #003366;
+      color: #003366;
+    }
+
+    .btn-outline:hover {
+      background: #003366;
+      color: white;
+    }
+
+    .btn-solid {
+      background: #003366;
+      color: white;
+    }
+
+    .btn-solid:hover {
+      background: #002244;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      font-size: 14px;
+      color: #666;
+      margin: 20px 5%;
+    }
+
+    .breadcrumb a {
+      color: #003366;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover {
+      color: #002244;
+    }
+
+    /* ===== HEADER FAKULTAS ===== */
+    .faculty-header {
+      background: linear-gradient(to right, rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                  url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1600&q=60');
+      background-size: cover;
+      background-position: center;
+      padding: 60px 5%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-radius: 8px;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    .faculty-header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      border: 2px solid #ddd;
+    }
+
+    .faculty-header h2 {
+      font-size: 18px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .faculty-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #003366;
+    }
+
+    /* ===== KONTEN ===== */
+    .content {
+      margin: 50px 5%;
+      text-align: center;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .content h3 {
+      font-size: 24px;
+      color: #002855;
+      margin-bottom: 20px;
+    }
+
+    .content p {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+      color: #555;
+      font-size: 16px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #002855;
+      color: white;
+      padding: 60px 5% 20px 5%;
+      margin-top: 80px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-logo img {
+      width: 60px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .footer-logo h2 {
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .footer-logo p {
+      font-size: 14px;
+      color: #cfd8dc;
+    }
+
+    .footer-links h4, .footer-social h4 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-links ul li a {
+      color: #cfd8dc;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .footer-links ul li a:hover {
+      color: #003366;
+      text-decoration: underline;
+    }
+
+    .footer-social .icons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: #004080;
+      border-radius: 50%;
+      font-size: 18px;
+      transition: 0.3s;
+      text-decoration: none;
+      color: white;
+    }
+
+    .social-icon:hover {
+      background: #003366;
+      transform: translateY(-4px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 15px;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #cfd8dc;
+    }
+
+    /* ===== PROGRAM STUDI ===== */
+    .programs {
+      margin: 50px 5%;
+      text-align: center;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .programs h3 {
+      font-size: 24px;
+      color: #002855;
+      margin-bottom: 30px;
+    }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .program-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .program-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    .program-card h4 {
+      font-size: 18px;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+
+    .program-card p {
+      color: #555;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ===== ANIMASI ===== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-center {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      nav {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .faculty-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .faculty-header img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .content h3 {
+        font-size: 20px;
+      }
+
+      .content p {
+        font-size: 14px;
+      }
+
+      .program-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .footer-logo img {
+        width: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAVBAR ===== -->
+  <nav>
+    <div class="nav-left">
+      <div class="logo">SOSIO<span style="color:#333;">LAB</span></div>
+    </div>
+
+    <div class="nav-center">
+      <ul class="nav-menu">
+        <li><a href="#" class="nav-link" title="Profil">👤</a></li>
+        <li class="dropdown">
+          <a href="#" class="nav-link" title="Upload Dokumen">📤</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Proposal</a></li>
+            <li><a href="#">Skripsi</a></li>
+          </ul>
+        </li>
+        <li><a href="#" class="nav-link" title="Galeri">🖼️</a></li>
+        <li><a href="#" class="nav-link" title="Keluarga Besar Sosiologi">👨‍👩‍👧‍👦</a></li>
+        <li><a href="#" class="nav-link" title="Jurnal Sosiologi">📖</a></li>
+        <li><a href="#" class="nav-link" title="Tentang">ℹ️</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-right">
+      <form class="form">
+        <label for="search">
+          <input class="input" type="text" required="" placeholder="Cari di SOSIOLAB.." id="search">
+          <div class="fancy-bg"></div>
+          <div class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="r-14j79pv r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-4wgw6l r-f727ji r-bnwqim r-1plcrui r-lrvibr">
+              <g>
+                <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+              </g>
+            </svg>
+          </div>
+          <button class="close-btn" type="reset">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </label>
+      </form>
+      <button class="btn btn-outline">Daftar</button>
+      <button class="btn btn-solid">Masuk</button>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <ul class="sidebar-menu">
+        <li><a href="#" class="sidebar-link" title="Profil">👤</a></li>
+        <li class="sidebar-dropdown">
+          <a href="#" class="sidebar-link" title="Upload Dokumen">📤</a>
+          <ul class="sidebar-dropdown-menu">
+            <li><a href="#">Proposal</a></li>
+            <li><a href="#">Skripsi</a></li>
+          </ul>
+        </li>
+        <li><a href="#" class="sidebar-link" title="Galeri">🖼️</a></li>
+        <li><a href="#" class="sidebar-link" title="Keluarga Besar Sosiologi">👨‍👩‍👧‍👦</a></li>
+        <li><a href="#" class="sidebar-link" title="Jurnal Sosiologi">📖</a></li>
+        <li><a href="#" class="sidebar-link" title="Tentang">ℹ️</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="breadcrumb">
+    <a href="#">Kampus</a> > 
+    <a href="#">Universitas Negeri Gorontalo</a> > 
+    Fakultas Ilmu Sosial
+  </div>
+
+  <!-- ===== HEADER FAKULTAS ===== -->
+  <div class="faculty-header">
+    <img src="assets/img/logoung.png">
+    <div>
+      <h2>Universitas Negeri Gorontalo</h2>
+      <h1>Jurusan Sosiologi</h1>
+    </div>
+  </div>
+
+  <!-- ===== KONTEN ===== -->
+  <div class="content">
+    <h3>Informasi Umum</h3>
+    <p>
+      Fakultas Ilmu Sosial (FIS) merupakan perwujudan alih status dari Fakultas Pendidikan dan Ilmu Pengetahuan Sosial IKIP Negeri Gorontalo.
+      Saat ini tersedia empat program studi di FIS UNG yang bisa Quipperian jadikan pilihan untuk menempuh pendidikan lanjutan, lho.
+    </p>
+  </div>
+
+  <!-- ===== PROGRAM STUDI ===== -->
+  <div class="programs">
+    <h3>Program Studi</h3>
+    <div class="program-grid">
+      <div class="program-card">
+        <h4>Sosiologi</h4>
+        <p>Memahami masyarakat dan dinamika sosial.</p>
+      </div>
+      <div class="program-card">
+        <h4>Ilmu Politik</h4>
+        <p>Mempelajari sistem pemerintahan dan politik.</p>
+      </div>
+      <div class="program-card">
+        <h4>Ilmu Komunikasi</h4>
+        <p>Mengembangkan keterampilan komunikasi efektif.</p>
+      </div>
+      <div class="program-card">
+        <h4>Ilmu Administrasi Negara</h4>
+        <p>Mengelola administrasi publik dengan baik.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/id/5/53/Lambang_Universitas_Negeri_Gorontalo.png" alt="UNG Logo">
+        <h2>Fakultas Ilmu Sosial</h2>
+        <p>Universitas Negeri Gorontalo</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Tautan Cepat</h4>
+        <ul>
+          <li><a href="#">Beranda</a></li>
+          <li><a href="#">Tentang FIS</a></li>
+          <li><a href="#">Program Studi</a></li>
+          <li><a href="#">Kontak</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social">
+        <h4>Ikuti Kami</h4>
+        <div class="icons">
+          <a href="#" class="social-icon">📘</a>
+          <a href="#" class="social-icon">📸</a>
+          <a href="#" class="social-icon">▶️</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Fakultas Ilmu Sosial - Universitas Negeri Gorontalo. Semua Hak Dilindungi.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+
+    // Close sidebar when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+
+    // Toggle dropdown in sidebar
+    const sidebarDropdowns = document.querySelectorAll('.sidebar-dropdown > .sidebar-link');
+
+    sidebarDropdowns.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const parent = link.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
